@@ -33,9 +33,13 @@ class Paginator
                 ->getQuery()
                 ->getSingleScalarResult();
 
+            if ($page !== 'all') {
+                $queryBuilder
+                    ->setMaxResults($maxResults)
+                    ->setFirstResult(($page - 1) * $maxResults);
+            }
+
             $items = $queryBuilder
-                ->setMaxResults($maxResults)
-                ->setFirstResult(($page - 1) * $maxResults)
                 ->getQuery()
                 ->getResult();
 
