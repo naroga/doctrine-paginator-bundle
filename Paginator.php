@@ -19,7 +19,7 @@ class Paginator
      * @param int $page                     The page number (defaults to 1).
      * @return Page                         The paginated resultset.
      */
-    public function paginate(QueryBuilder $queryBuilder, $countableProperty, $maxResults = 10, $page = 1)
+    public function paginate(QueryBuilder $queryBuilder, $countableProperty, $page = 1, $maxResults = 10)
     {
         if (strtolower($page) == 'all') {
             $items = $queryBuilder->getQuery()->getResult();

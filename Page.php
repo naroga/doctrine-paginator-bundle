@@ -6,7 +6,7 @@ namespace Naroga\DoctrinePaginatorBundle;
  * Class Page
  * @package Naroga\DoctrinePaginatorBundle
  */
-class Page
+final class Page
 {
     /** @var integer */
     private $page;
