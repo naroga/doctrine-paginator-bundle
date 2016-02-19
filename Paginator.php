@@ -1,0 +1,47 @@
+<?php
+
+namespace Naroga\DoctrinePaginatorBundle;
+
+use Doctrine\ORM\QueryBuilder;
+
+/**
+ * Class Paginator
+ * @package Naroga\DoctrinePaginatorBundle\Service
+ */
+class Paginator
+{
+    /**
+     * Paginates the QueryBuilder
+     *
+     * @param QueryBuilder $queryBuilder    A QueryBuilder to be paginated.
+     * @param string $countableProperty     A property name ('q.id', for example), to count.
+     * @param int $maxResults               Maximum number of results (defaults to 10).
+     * @param int $page                     The page number (defaults to 1).
+     * @return Page                         The paginated resultset.
+     */
+    public function paginate(QueryBuilder $queryBuilder, $countableProperty, $maxResults = 10, $page = 1)
+    {
+        if (strtolower($page) == 'all') {
+            $items = $queryBuilder->getQuery()->getResult();
+            $total = count($items);
+            $pages = 1;
+        } else {
+            $totalQueryBuilder = clone $queryBuilder;
+
+            $total = $totalQueryBuilder
+                ->select('COUNT(' . $countableProperty . ')')
+                ->getQuery()
+                ->getSingleScalarResult();
+
+            $items = $queryBuilder
+                ->setMaxResults($maxResults)
+                ->setFirstResult(($page - 1) * $maxResults)
+                ->getQuery()
+                ->getResult();
+
+            $pages = ceil($total/$maxResults);
+        }
+
+        return Page::create($page, $total, count($items), $pages, $items);
+    }
+}
