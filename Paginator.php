@@ -43,7 +43,7 @@ class Paginator
                 ->getQuery()
                 ->getResult();
 
-            $pages = ceil($total/$maxResults);
+            $pages = $page === 'all' ? 1 : ceil($total/$maxResults);
         }
 
         return Page::create($page, $total, count($items), $pages, $items);
