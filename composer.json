@@ -1,5 +1,6 @@
 {
   "name": "naroga/doctrine-paginator-bundle",
+  "license": "MIT",
   "authors": [
     {
       "name": "Pedro Cordeiro",
