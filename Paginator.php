@@ -14,12 +14,11 @@ class Paginator
      * Paginates the QueryBuilder
      *
      * @param QueryBuilder $queryBuilder    A QueryBuilder to be paginated.
-     * @param string $countableProperty     A property name ('q.id', for example), to count.
      * @param int $maxResults               Maximum number of results (defaults to 10).
      * @param int $page                     The page number (defaults to 1).
      * @return Page                         The paginated resultset.
      */
-    public function paginate(QueryBuilder $queryBuilder, $countableProperty, $page = 1, $maxResults = 10)
+    public function paginate(QueryBuilder $queryBuilder, $page = 1, $maxResults = 10)
     {
         if (strtolower($page) == 'all') {
             $items = $queryBuilder->getQuery()->getResult();
@@ -29,7 +28,7 @@ class Paginator
             $totalQueryBuilder = clone $queryBuilder;
 
             $total = $totalQueryBuilder
-                ->select('COUNT(' . $countableProperty . ')')
+                ->select("COUNT('*')")
                 ->getQuery()
                 ->getSingleScalarResult();
 
