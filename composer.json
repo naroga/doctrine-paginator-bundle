@@ -9,7 +9,6 @@
   ],
   "require": {
     "php": ">=7.0",
-    "symfony/assetic-bundle": "^2.7",
     "doctrine/orm": "^2.5"
   },
   "autoload": {
