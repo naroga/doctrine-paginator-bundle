@@ -19,7 +19,7 @@ Creates beautiful pagination objects for Doctrine.
         ->select('q')
         ->from(MyEntity::class);
         
-    $result = $paginator->paginate($qBuilder, 'q.id', 1, 10);
+    $result = $paginator->paginate($qBuilder, 1, 10);
     
     var_dump($result); 
     
