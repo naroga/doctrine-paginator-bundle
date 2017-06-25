@@ -31,7 +31,7 @@ final class Page
     private function __construct($page, $totalItems, $pageItems, $totalPages, $items)
     {
         $this->page = $page;
-        $this->totalItems = $totalItems;
+        $this->totalItems = (int)$totalItems;
         $this->pageItems = $pageItems;
         $this->totalPages = $totalPages;
         $this->items = $items;
