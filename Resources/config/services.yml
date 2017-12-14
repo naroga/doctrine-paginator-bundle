@@ -1,3 +1,4 @@
 services:
     naroga.doctrine_paginator:
         class: Naroga\DoctrinePaginatorBundle\Paginator
+        public: true
