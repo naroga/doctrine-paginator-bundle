@@ -4,7 +4,6 @@ namespace Naroga\DoctrinePaginatorBundle;
 
 use Doctrine\ORM\QueryBuilder;
 use Naroga\DoctrinePaginatorBundle\Exception\InvalidArgumentException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class Paginator
