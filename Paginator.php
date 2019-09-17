@@ -4,6 +4,7 @@ namespace Naroga\DoctrinePaginatorBundle;
 
 use Doctrine\ORM\QueryBuilder;
 use Naroga\DoctrinePaginatorBundle\Exception\InvalidArgumentException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class Paginator
@@ -21,7 +22,7 @@ class Paginator
      * @throws \Doctrine\ORM\NonUniqueResultException   In case multiple records get returned on the COUNT(*) query.
      * @throws InvalidArgumentException                 In case any of the arguments are invalid.
      */
-    public function paginate(QueryBuilder $queryBuilder, $page = 1, $maxResults = 10)
+    public function paginate(QueryBuilder $queryBuilder, $page = 1, $maxResults = 10, $orderBy = null, $order  = 'ASC')
     {
         if (!is_numeric($page) || $page < 1) {
             throw new InvalidArgumentException("Argument \$page needs to be an integer, grater than 0");
@@ -49,6 +50,10 @@ class Paginator
                     ->setFirstResult(($page - 1) * $maxResults);
             }
 
+            if ($orderBy !== null) {
+                $queryBuilder->orderBy($orderBy, $order);
+            }
+
             $items = $queryBuilder
                 ->getQuery()
                 ->getResult();
@@ -59,3 +64,4 @@ class Paginator
         return Page::create($page, $total, count($items), $pages, $items);
     }
 }
+
